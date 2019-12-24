@@ -1,0 +1,14 @@
+# ACRN: A Big Little Hypervisor for IoT Development
+
+## 主要工作
+- 介绍acrn ，一款面向IoT开发的，轻量级、可扩展、灵活的嵌入式hypervisor
+- 提出一种安全有效实时虚拟化方案，如何把实时虚拟化和非实时虚拟化相结合
+- 工业级全面评估
+
+### secction2 Related work
+Xen的事件通道对嵌入式来说太重量级了、API复杂、难以优化
+
+
+与xvisor等Hypervisor不同的是，ACRN将主要的外设模块都放在VM中，而不是放在hypervisor中，类似于Xen的Dom0.
+
+
