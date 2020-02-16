@@ -13,6 +13,10 @@ CPU以CLUSTER为单位管理，如10个cpu，其中4个小核为CLUSTER_2，另�
 
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/cpu%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84.png)
 
+#### 时钟
+arm的timer在core内部，以PPI中断形式发送
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/arm%E6%97%B6%E9%92%9F.png)
+
 ### 中断流程(gicv3)
 #### 通过distributor(比如SPI)
 - 外设发起中断，发给distributor
