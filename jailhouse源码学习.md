@@ -19,7 +19,7 @@ arm的timer在core内部，以PPI中断形式发送
 
 ### 中断流程(gicv3)
 #### 通过distributor(比如SPI)
-- 外设发起中断，发给distributor
+- 外设发起中断，发给distributor，distributor把收集来的中断先缓存起来(pending状态)，然后根据优先级先后发出去
 - distributor分发给合适re-distributor
 - re-distributor将中断发送给cpu interface
 - cpu interface产生合适的中断异常给处理器
