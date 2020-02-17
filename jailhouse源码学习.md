@@ -3,6 +3,8 @@ gic主要分为两部分
 - distributor：中断路由设备；对整个中断控制设备使能操作；对每个中断优先级控制；设置中断触发方式(边缘触发和电平触发)；对中断目标发送CPU进行设置决定分发到哪个CPU；记录每个中断的状态；
 - cpu interface：将中断发给CPU；对中断进行认可(acknowledging an interrupt)；设置中断优先级屏蔽；中断完成识别(inacting an interrupt)；定义中断抢占策略。
 
+与gicv2不同的是gicv3将cpu interface从gic中抽离出来放在了core内部。core需要频繁访问cpu interface，这样做可以减少访问延迟。
+
 ### 中断
 三类中断
 - SPI(shared peripheral interrupt)：常见的外部设备中断，如手机触屏，1-15
@@ -13,6 +15,14 @@ CPU以CLUSTER为单位管理，如10个cpu，其中4个小核为CLUSTER_2，另�
 
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/cpu%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84.png)
 
+clusterid保存aff3 aff2 aff1的信息，targetid保存aff0的信息
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/sgi_code.png)
+
+#### 中断分组
+gicv3将中断分为group0和group1，使用寄存器GICD_IGROUPn来对每个中断进行分组
+- group0：安全中断，提供给EL3使用
+- group1：又分为2组，分别为安全中断和非安全中断
+
 #### 时钟
 arm的timer在core内部，以PPI中断形式发送
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/arm%E6%97%B6%E9%92%9F.png)
@@ -22,14 +32,20 @@ arm的timer在core内部，以PPI中断形式发送
 - 外设发起中断，发给distributor，distributor把收集来的中断先缓存起来(pending状态)，然后根据优先级先后发出去
 - distributor分发给合适re-distributor
 - re-distributor将中断发送给cpu interface
-- cpu interface产生合适的中断异常给处理器
+- 中断认可：cpu响应该中断，中断从pending变为active状态，通过访问GICC_IAR认可group0中断，访问GICC_AIAR认可group1中断。
+- 中断完成：分为两步
+    - 优先级重置(priority drop)：将当前中断优先级重置，以便能响应较低优先级中断(以防这个中断处理时间过长)。group0中断通过写GICC_EOIR寄存器，group1通过写GICC_AOIR寄存器。
+    - 中断无效(interrupt deactivation)：cpu读取一个中断，即读interface的寄存器，cpu interface产生合适的中断异常给处理器
 
 #### 不通过distribuor(如LPI)
 LPI是gicv3新添加的中断类型，不经过distributor，没有pending状态，目前没有具体应用。
 - 外设发起中断，发送给ITS
 - ITS分析中断。分发给re-distributor
 - re-distributor将中断信息发给cpu interface
-- cpu interface产生合适的中断异常给处理器
+- 中断认可：cpu响应该中断，中断从pending变为active状态，通过访问GICC_IAR认可group0中断，访问GICC_AIAR认可group1中断。
+- 中断完成：分为两步
+    - 优先级重置(priority drop)：将当前中断优先级重置，以便能响应较低优先级中断(以防这个中断处理时间过长)。group0中断通过写GICC_EOIR寄存器，group1通过写GICC_AOIR寄存器。
+    - 中断无效(interrupt deactivation)：cpu读取一个中断，即读interface的寄存器，cpu interface产生合适的中断异常给处理器
 
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E5%A4%96%E8%AE%BE%E4%B8%AD%E6%96%AD%E6%B5%81%E7%A8%8B.png)
 
