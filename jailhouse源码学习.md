@@ -29,6 +29,21 @@ ARM时钟主要是：SOC上的system counter(多个processor共享)以及附着�
 - Timer：就是定时器，可以指定一段时间，当时间到了就会assert一个外部输出信号(可以输出到GIC，作为一个interrupt)
 arm的timer在core内部，以PPI中断形式发送
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/arm%E6%97%B6%E9%92%9F.png)
+</br></br>
+时钟寄存器部分代码
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E6%9C%AA%E5%91%BD%E5%90%8D%E5%9B%BE%E7%89%87.png)
+</br></br></br></br>
+处理器通过CNTPCT寄存器获取system counter的值，即physical counter；通过CNTVCT寄存器访问virtual counter。
+</br></br>
+每个timer都会有多个timer：
+- 对于不支持security extension的SOC（不支持security extension也就意味着 不支持virtualization extension），timer实际上有两个，一个是physical timer，另外一个是virtual timer。虽然有两个，不过从行为上看，virtual timer和physical timer行为一致
+- 对于支持security extension但不支持virtualization extension的SOC，每个cpu有三个timer：Non-secure physical timer，Secure physical timer和virtual timer
+- 对于支持virtualization extension的SOC，每个cpu有四个timer：Non-secure PL1 physical timer，Secure PL1 physical timer，Non-secure PL2 physical timer和virtual timer
+</br></br>
+每个timer都有三个寄存器
+- 64-bit CompareValue register：一个64 bit unsigned upcounter；physical counter - CompareValue >= 0的话，触发中断，向GIC发中断
+- 32-bit TimerValue register：随着system counter的值不断累加，TimerValue register的值在递减，当值<=0的时候，便会向GIC触发中断
+- 32-bit控制寄存器。该寄存器主要对timer进行控制，具体包括：enable或是disable该timer，mask或者unmask该timer的output signal（timer interrupt）
 
 ### 中断流程(gicv3)
 #### 通过distributor(比如SPI)
