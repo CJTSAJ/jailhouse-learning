@@ -24,6 +24,9 @@ gicv3将中断分为group0和group1，使用寄存器GICD_IGROUPn来对每个中
 - group1：又分为2组，分别为安全中断和非安全中断
 
 #### 时钟
+ARM时钟主要是：SOC上的system counter(多个processor共享)以及附着在processor上的Timer
+- system counter:计算输入时钟已经过了多少个clock，从0开始，每个clock，counter加一；system counter的值需要分发到各个timer中
+- Timer：就是定时器，可以指定一段时间，当时间到了就会assert一个外部输出信号(可以输出到GIC，作为一个interrupt)
 arm的timer在core内部，以PPI中断形式发送
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/arm%E6%97%B6%E9%92%9F.png)
 
