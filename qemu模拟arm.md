@@ -26,6 +26,10 @@ git checkout -b v2019.10_origin v2019.10
  CONFIG_ARCH_QEMU=y
  CONFIG_TARGET_QEMU_ARM_64BIT=y
  ```
+ - 编译
+  ```
+make CROSS_COMPILE=arm_vir/tools/aarch64-gcc-9.2/bin/aarch64-nonelinux-gnu- O=arm_vir/build/u-boot V=1 -j8
+ ```
  
  ### 构建linux镜像
  - 获取linux源码
