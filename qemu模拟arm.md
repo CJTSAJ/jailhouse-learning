@@ -47,3 +47,9 @@ git clone https://github.com/mirror/busybox.git
 cd busybox
 git checkout -b 1_31_stable remotes/origin/1_31_stable
 ```
+
+### 构建xen镜像
+- 获取xen源码
+```
+ sudo git clone https://xenbits.xen.org/git-http/xen.git -b stable-4.121
+```
