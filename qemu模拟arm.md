@@ -46,6 +46,9 @@ cd arm_vir/src
 git clone https://github.com/mirror/busybox.git
 cd busybox
 git checkout -b 1_31_stable remotes/origin/1_31_stable
+
+mkdir -pv arm_vir/build/busybox
+make ARCH=arm64 CROSS_COMPILE=arm_vir/tools/aarch64-gcc9.2/bin/aarch64-none-linux-gnu- O=arm_vir/build/busybox defconfig
 ```
 
 ### 构建xen镜像
