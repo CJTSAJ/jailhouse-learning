@@ -2,6 +2,18 @@
 
 - nbd(Network Block Device)挂载，让用户可以通过玩过访问某个块设备或者设备镜像，比如将xen镜像在nbd-server某端口运行起来，将nbd设备关联到/dev/nbdx设备上，然后将/dev/nbdpx挂载到mnt目录下，则可以通过mnt目录查看镜像内的内容。
 
+### 挂载镜像传输文件
+```
+$ sudo modprobe nbd
+$ sudo qemu-nbd -c /dev/nbd0 /path/to/xenial-server-cloudimg-arm64-uefi1.img
+$ sudo mount /dev/nbd0p15 /mnt
+$ cd /mnt/EFI/XEN
+```
+- 取消挂载
+```
+$ sudo umount /dev/nbd0p15
+$ sudo qemu-nbd -d /dev/nbd0
+```
 ### 编译qemu
 - 获取qemu源码
 ```
