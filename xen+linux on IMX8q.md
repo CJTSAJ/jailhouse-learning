@@ -10,3 +10,6 @@ https://www.nxp.com/design/i-mx-developer-resources/i-mx-software-and-developmen
 .sdcard镜像，完整的.sdcard镜像已经分好区了
 
 默认登录用户：root，无密码
+
+解决perl缺少POSIX.pm模块问题
+sudo perl -MCPAN -e 'install POSIX'
