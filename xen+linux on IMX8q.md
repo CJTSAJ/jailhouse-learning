@@ -78,12 +78,13 @@ sudo mount /dev/nbd0p1 /mnt
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E6%B5%8B%E8%AF%951.png)
 </br></br></br>
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E6%B5%8B%E8%AF%952.png)
-.sdcard镜像，完整的.sdcard镜像已经分好区了
+
 
 
 
 #### 问题
-默认登录用户：root，无密码
+.sdcard镜像，完整的.sdcard镜像已经分好区了</br>
+默认登录用户：root，无密码</br>
 
-解决perl缺少POSIX.pm模块问题
+解决perl缺少POSIX.pm模块问题</br>
 sudo perl -MCPAN -e 'install POSIX'
