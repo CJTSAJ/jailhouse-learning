@@ -74,7 +74,7 @@ sudo mount /dev/nbd0p1 /mnt
 ```
 ./Run
 ```
-- 测试数据
+- 测试数据</br></br>
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E6%B5%8B%E8%AF%951.png)
 </br></br></br>
 ![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/%E6%B5%8B%E8%AF%952.png)
