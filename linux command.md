@@ -13,3 +13,9 @@ du -h --max-depth=1 filename
 df -lh
 fdisk -l
 ```
+
+- 杀死多个进程
+```
+ps -ef | grep qemu | grep -v grep | cut –c 9-15 | xargs kill –s 9
+ps aux | grep 进程名| grep -v grep | awk '{print $2}' | xargs kill -9
+```
