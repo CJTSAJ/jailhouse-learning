@@ -1,5 +1,19 @@
 
 ### 问题
+bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
+```
+bitbake fsl-image-validation-imx --runall fetch
+``````
+ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
+    Either fix the cause of this error or at your own risk disable the checker (see sanity.conf).
+    Following is the list of potential problems / advisories:
+
+    Fetcher failure for URL: 'https://www.example.com/'. URL https://www.example.com/ doesn't work.
+    Please ensure your host's network is configured correctly,
+    or set BB_NO_NETWORK = "1" to disable network access if
+    all required sources are on local disk.
+```
+
 编译yocto遇到的问题：升级git版本即可解决
 ```
 bitbake fsl-image-validation-imx
