@@ -1,8 +1,3 @@
-
-### ssh
-- ssh保持不断开
-ssh -o ServerAliveInterval=30 IP地址
-
 ### 问题
 bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
 ```
