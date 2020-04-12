@@ -1,3 +1,9 @@
+- kpartx命令挂载镜像: kpartx -a指定去添加哪个映像文件(add)，-v是指挂到loop设备(verbose)，-d就是delete的意思了
+```
+kpartx -av imx-rootfs.sdcard
+kpartx -dv imx-rootfs.sdcard
+```
+
 - ssh不断开连接
 ```
 ssh -o ServerAliveInterval=30 IP地址
