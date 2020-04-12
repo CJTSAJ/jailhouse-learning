@@ -3,6 +3,10 @@
 ssh -o ServerAliveInterval=30 IP地址
 ```
 
+- scp从远程拷贝文件
+```
+scp -P port user@server:/path/to/name/ /path/to/local/dir/
+```
 - 查看文件大小
 ```
 du -h filename
