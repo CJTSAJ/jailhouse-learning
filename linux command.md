@@ -1,3 +1,15 @@
+- rsync删除大量文件
+```
+rsync --delete-before -a -H -v /home/temp/ /home/file/
+
+–delete-before 接收者在传输之前进行删除操作
+–progress 在传输时显示传输过程
+-a 归档模式，表示以递归方式传输文件，并保持所有文件属性
+-H 保持硬连接的文件
+-v 详细输出模式
+–stats 给出某些文件的传输状态
+```
+
 - kpartx命令挂载镜像: kpartx -a指定去添加哪个映像文件(add)，-v是指挂到loop设备(verbose)，-d就是delete的意思了
 ```
 kpartx -av imx-rootfs.sdcard
