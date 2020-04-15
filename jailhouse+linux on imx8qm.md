@@ -1,3 +1,8 @@
+### jailhouse
+- jailhouse作为一个firmware image加载，resides in dedicated memory region which you should reserve at Linux boot time
+- jailhouse.ko 加载这个firmware image，然后创建/dev/jailhouse 设备
+- 
+
 ### 问题
 bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
 ```
