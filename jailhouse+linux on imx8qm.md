@@ -3,6 +3,9 @@
 - jailhouse.ko 加载这个firmware image，然后创建/dev/jailhouse 设备
 - 挂载linux rootfs，然后将jailhouse make install到该目录下
 
+```
+make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" clean
+```
 ### 问题
 bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
 ```
