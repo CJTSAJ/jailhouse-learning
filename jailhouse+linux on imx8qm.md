@@ -4,6 +4,8 @@
 - 挂载linux rootfs，然后将jailhouse make install到该目录下
 
 ```
+unset CFLAGS && unset LDFLAGS
+
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" clean
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
 ```
