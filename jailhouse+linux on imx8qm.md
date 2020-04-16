@@ -5,6 +5,7 @@
 
 ```
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" clean
+make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
 ```
 ### 问题
 bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
