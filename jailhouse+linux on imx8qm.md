@@ -9,10 +9,14 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/m
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
 ```
 
-- 添加用户
+- 添加用户，并添加用户至sudoers组
 ```
 useradd username
 passwd username
+
+vim /etc/sudoers
+
+user    ALL=(ALL)       ALL
 ```
 
 - unixbench测试单进程和双进程
