@@ -19,6 +19,11 @@ vim /etc/sudoers
 user    ALL=(ALL)       ALL
 ```
 
+
+- 限制用户内存资源(ulimit)
+```
+vi /etc/security/limits.conf
+```
 - unixbench测试单进程和双进程
 ```
 ./Run -c 1 -c 2
