@@ -1,3 +1,8 @@
+- 添加用户
+```
+useradd username
+passwd username
+```
 - rsync删除大量文件
 ```
 rsync --delete-before -a -H -v /home/temp/ /home/file/
