@@ -2,12 +2,22 @@
 - jailhouse作为一个firmware image加载，resides in dedicated memory region which you should reserve at Linux boot time
 - jailhouse.ko 加载这个firmware image，然后创建/dev/jailhouse 设备
 - 挂载linux rootfs，然后将jailhouse make install到该目录下
-
 ```
 unset CFLAGS && unset LDFLAGS
 
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" clean
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
+```
+
+- 添加用户
+```
+useradd username
+passwd username
+```
+
+- unixbench测试单进程和双进程
+```
+./Run -c 1 -c 2
 ```
 ### 问题
 bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
