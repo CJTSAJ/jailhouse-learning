@@ -1,3 +1,7 @@
+- find查找文件
+```
+find / -name httpd.conf　　#在根目录下查找文件httpd.conf，表示在整个硬盘查找
+```
 - grep查找文件内容
 ```
 grep -nr "name" /dir
