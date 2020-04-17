@@ -1,3 +1,7 @@
+- grep查找文件内容
+```
+grep -nr "name" /dir
+```
 - 添加用户
 ```
 useradd username
