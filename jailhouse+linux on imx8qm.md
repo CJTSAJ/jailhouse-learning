@@ -24,7 +24,10 @@ vim /etc/sudoers
 user    ALL=(ALL)       ALL
 ```
 
-
+```
+run loadimage
+run jh_mmcboot
+```
 - 限制用户内存资源(ulimit)
 ```
 vi /etc/security/limits.conf
