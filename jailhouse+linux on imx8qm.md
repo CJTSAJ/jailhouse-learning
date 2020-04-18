@@ -9,6 +9,11 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/m
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
 ```
 
+- 将git:// 协议改为https:// ，防止代理出错(服务器代理只有http_proxy和https_proxy)
+```
+git config --global url.https://github.com/.insteadOf git://github.com/
+```
+
 - 添加用户，并添加用户至sudoers组
 ```
 useradd username
