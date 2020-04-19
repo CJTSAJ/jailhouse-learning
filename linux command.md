@@ -1,3 +1,14 @@
+- locate快速查找文件，该命令从系统数据库进行查找，该数据库一天一更新
+```
+locate filename
+```
+- linux下http https代理
+```
+vim /etc/profile
+export http_proxy=http://cjt:12345678@202.120.32.250:5678
+export https_proxy=https://cjt:12345678@202.120.32.250:5678
+```
+
 - sudo -i sudo -s
 
 - find查找文件
