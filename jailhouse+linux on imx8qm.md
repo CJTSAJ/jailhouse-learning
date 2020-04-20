@@ -1,7 +1,16 @@
-### jailhouse
+### imx8qm yocto以及linux编译
+- 详情见
+https://github.com/CJTSAJ/jailhouse-learning/blob/master/xen%2Blinux%20on%20IMX8q.md
+
+- 将git:// 协议改为https:// ，防止代理出错(服务器代理只有http_proxy和https_proxy)
+```
+git config --global url.https://github.com/.insteadOf git://github.com/
+```
+
+### jailhouse编译
 - jailhouse作为一个firmware image加载，resides in dedicated memory region which you should reserve at Linux boot time
 - jailhouse.ko 加载这个firmware image，然后创建/dev/jailhouse 设备
-- 挂载linux rootfs，然后将jailhouse make install到该目录下
+- 挂载linux rootfs，将jailhouse make install到该目录下
 ```
 unset CFLAGS && unset LDFLAGS
 
@@ -9,11 +18,24 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/m
 make ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- KDIR=/home/public2/jailhouse/my_linux/linux-imx CC="aarch64-poky-linux-gcc --sysroot=$SDKTARGETSYSROOT" DESTDIR=/home/public2/jailhouse/my_jailhouse/build/mnt install
 ```
 
-- 将git:// 协议改为https:// ，防止代理出错(服务器代理只有http_proxy和https_proxy)
+### 启动jailhouse
+在Uboot阶段按空格进入Uboot命令
 ```
-git config --global url.https://github.com/.insteadOf git://github.com/
+# 加载arm64 linux镜像到指定内存位置
+run loadimage
+run jh_mmcboot
+
+# 加载JailHouse内核模块： 
+insmod jailhouse.ko
+# 开启虚拟机功能： 
+./jailhouse enable configs/imx8mq.cell
 ```
 
+### 启动裸机linux
+- 在Uboot阶段不做任何操作，开发板会自动启动Linux
+- 或者在Uboot阶段输入命令run bootcmd
+
+### 测试
 - 添加用户，并添加用户至sudoers组
 ```
 useradd username
@@ -24,20 +46,30 @@ vim /etc/sudoers
 user    ALL=(ALL)       ALL
 ```
 
-```
-run loadimage
-run jh_mmcboot
-```
 - 限制用户内存资源(ulimit)
 ```
 vi /etc/security/limits.conf
+@chen hard rss 2GB
 ```
 - unixbench测试单进程和双进程
 ```
 ./Run -c 1 -c 2
 ```
+
+### jailhouse实验数据
+单进程</br>
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/jailhouse%E8%A3%B8%E6%9C%BA%E5%8D%95%E8%BF%9B%E7%A8%8B1.png)
+双进程</br>
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/jailhouse%E8%A3%B8%E6%9C%BA%E5%8F%8C%E8%BF%9B%E7%A8%8B1.png)
+
+### linux裸机运行实验数据
+单进程</br>
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/linux%E8%A3%B8%E6%9C%BA%E5%8D%95%E8%BF%9B%E7%A8%8B.png)
+双进程</br>
+![](https://github.com/CJTSAJ/jailhouse-learning/blob/master/picture/linux%E8%A3%B8%E6%9C%BA%E5%8F%8C%E8%BF%9B%E7%A8%8B.png)
+
 ### 问题
-bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
+- bitbake编译中下载软件包遇到的问题: export BB_NO_NETWORK=1
 ```
 bitbake fsl-image-validation-imx --runall fetch
 ```
@@ -52,7 +84,7 @@ ERROR:  OE-core's config sanity checker detected a potential misconfiguration.
     all required sources are on local disk.
 ```
 
-编译yocto遇到的问题：升级git版本即可解决
+- 编译yocto遇到的问题：升级git版本即可解决
 ```
 bitbake fsl-image-validation-imx
 ```
