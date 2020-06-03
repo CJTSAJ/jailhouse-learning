@@ -28,7 +28,7 @@ run jh_mmcboot
 # 加载JailHouse内核模块： 
 insmod jailhouse.ko
 # 开启虚拟机功能： 
-./jailhouse enable configs/imx8mq.cell
+./jailhouse enable configs/imx8qm.cell
 ```
 
 ### 启动裸机linux
