@@ -1,3 +1,12 @@
+- ubuntu 根证书：
+```
+$sudo cp 证书路径.crt /usr/local/share/ca-certificates
+$sudo update-ca-certificates
+
+$sudo rm -f /usr/local/share/ca-certificates/xinmu.crt  
+$sudo update-ca-certificates
+```
+
 - locate快速查找文件，该命令从系统数据库进行查找，该数据库一天一更新
 ```
 locate filename
